@@ -1,0 +1,8 @@
+CHIP MyDMux4Way {
+  IN in, sel[2];
+  OUT a, b, c,d;
+  PARTS:
+  MyDMux(in=in, sel=sel[1], a=tempAB, b=tempCD);
+  MyDMux(in=tempAB, sel=sel[0], a=a, b=b);
+  MyDMux(in=tempCD, sel=sel[0], a=c, b=d);
+}

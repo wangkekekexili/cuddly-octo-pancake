@@ -1,0 +1,8 @@
+CHIP MyDMux {
+  IN in, sel;
+  OUT a, b;
+  PARTS:
+  MyNot(in=sel, out=notSel);
+  MyAnd(a=in, b=notSel, out=a);
+  MyAnd(a=in, b=sel, out=b);
+}

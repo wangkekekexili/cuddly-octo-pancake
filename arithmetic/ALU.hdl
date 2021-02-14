@@ -42,5 +42,24 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+    MyMux16(a=x, b=false, sel=zx, out=tempX);
+    MyNot16(in=tempX, out=notTempX);
+    MyMux16(a=tempX, b=notTempX, sel=nx, out=tempX2);
+
+    MyMux16(a=y, b=false, sel=zy, out=tempY);
+    MyNot16(in=tempY, out=notTempY);
+    MyMux16(a=tempY, b=notTempY, sel=ny, out=tempY2);
+
+    Add16(a=tempX2, b=tempY2, out=addXY);
+    MyAnd16(a=tempX2, b=tempY2, out=andXY);
+    MyMux16(a=andXY, b=addXY, sel=f, out=fResult);
+
+    MyNot16(in=fResult, out=notFResult);
+    MyMux16(a=fResult, b=notFResult, sel=no, out=out, out[8..15]=further1, out[0..7]=further2, out[15]=sign);
+
+    MyOr8Way(in=further1, out=orFirst);
+    MyOr8Way(in=further2, out=orSecond);
+    MyOr(a=orFirst, b=orSecond, out=orCombined);
+    MyNot(in=orCombined, out=zr);
+    MyAnd(a=sign, b=true, out=ng);
 }
