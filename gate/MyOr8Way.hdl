@@ -1,0 +1,12 @@
+CHIP MyOr8Way {
+  IN in[8];
+  OUT out;
+  PARTS:
+  MyOr(a=in[0], b=in[1], out=temp1);
+  MyOr(a=temp1, b=in[2], out=temp2);
+  MyOr(a=temp2, b=in[3], out=temp3);
+  MyOr(a=temp3, b=in[4], out=temp4);
+  MyOr(a=temp4, b=in[5], out=temp5);
+  MyOr(a=temp5, b=in[6], out=temp6);
+  MyOr(a=temp6, b=in[7], out=out);
+}
